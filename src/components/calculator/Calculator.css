@@ -1,0 +1,15 @@
+.wrapper{
+    max-width:20rem;
+    margin: 2rem auto;
+    background: #2c3c4b;
+    border-radius:0.3rem;
+  }
+
+  .buttonsBox{
+    padding:0.5rem;
+    display: grid;
+    grid-template-columns: repeat(5, 19%);
+    grid-template-rows: auto;
+    gap:0.3rem;
+    justify-content:space-evenly;
+  }

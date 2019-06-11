@@ -1,0 +1,23 @@
+.btn {
+    color:#f0f1f3;
+    border: 1px solid #f0f1f3;
+    border-radius:0.3rem;
+    padding:1rem 0.5rem;
+    background: #3c4e5f;
+    font-size:1rem;
+    text-align:center;
+    text-transform: uppercase;
+  }
+  
+  .btn.action, .btn.operator {
+    background:#4c5d6f;
+  }
+  
+  .btn.highlight{
+    background:#ea8c73;
+    grid-column-end: span 2;
+  }
+  
+  .btn.number {
+    border-color:#ea8c73;
+  }
