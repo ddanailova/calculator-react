@@ -1,11 +1,12 @@
 .wrapper{
     max-width:20rem;
-    margin: 2rem auto;
+    margin: 5rem auto;
     background: #2c3c4b;
     border-radius:0.3rem;
+    box-shadow: -1px -2px 23px -4px rgba(0,0,0,0.7);
   }
 
-  .buttonsBox{
+  .key-pad{
     padding:0.5rem;
     display: grid;
     grid-template-columns: repeat(5, 19%);

@@ -1,41 +1,71 @@
 import React, {Component} from 'react';
 import Display from './../display/Display';
 import Button from './../button/Button';
+import * as math from 'mathjs';
 import './Calculator.css';
+
+
 
 class Calculator extends Component{
     constructor(props){
         super(props);
 
         this.state={
-            input:"",
+            input:"0",
+            activeCharOffset:0,
             customizeMode:false
         }
     }
 
     addToInput=(value)=>{
-        this.setState((prevState)=>({
-            input:prevState.input+value
-        }))
-    }
-
-    removeFromInput=()=>{
-        if(this.state.input){
-            console.log('remove');
-            this.setState((prevState)=>{
-                return{
-                input:prevState.input.slice(0, prevState.input.length-1)
-            }})
+        const {input}=this.state;
+        const actionOperators =['.','+','-','*','/','%'];
+        const isEndingWithActionOperator = actionOperators.includes(value) && actionOperators.includes(input.slice(-1));
+        
+        if(input==='0' || input ==='Invalid input' ){
+            this.setState({
+                input:value
+            })
+        }else if(!isEndingWithActionOperator){
+            this.setState((prevState)=>({
+                input:prevState.input+value
+            }));
         }
     }
 
-    render(){
+    removeInput=()=>{
+        const willBeEmpty = this.state.input==='0' || this.state.input.length===1 || this.state.input==='Invalid input';
+
+        willBeEmpty ?
+            this.setState({
+                input:'0'
+            }):
+            this.setState((prevState)=>({
+                input:prevState.input.slice(0, prevState.input.length-1)
+            }))
+        
+    }
+
+    calculate=()=>{
         const {input}=this.state;
+        let result;
+        try{
+            result=math.evaluate(input);
+
+        }catch(err){
+            result="Invalid input";
+        }
+
+        this.setState({input:result.toString()});
+    }
+
+    render(){
+        const {input, activeCharOffset}=this.state;
         return(
             <section className="wrapper">
-                <Display input={input}/>
-                <section className="buttonsBox">
-                    <Button type="action" removeFromInput={this.removeFromInput}>del</Button>
+                <Display input={input} activeCharOffset={activeCharOffset}/>
+                <section className="key-pad">
+                    <Button type="action" removeInput={this.removeInput}>del</Button>
                     <Button type="action">{'<'}</Button>
                     <Button type="action">{'>'}</Button>
                     <Button type="action">customize</Button>
@@ -56,7 +86,7 @@ class Calculator extends Component{
                     <Button type="operator" addToInput={this.addToInput}>*</Button>
                     <Button type="number" addToInput={this.addToInput}>0</Button>
                     <Button type="operator" addToInput={this.addToInput}>.</Button>
-                    <Button type="action">=</Button>
+                    <Button type="action" calculate={this.calculate}>=</Button>
                     <Button type="operator" addToInput={this.addToInput}>/</Button>
                 </section>
             </section>

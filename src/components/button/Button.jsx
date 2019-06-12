@@ -2,7 +2,7 @@ import React from 'react';
 import './Button.css';
 
 const Button =(props)=>{
-    const {children, type, addToInput, removeFromInput}=props;
+    const {children, type, addToInput, removeInput, calculate}=props;
     let styleClasses="btn";
     if(type){
         styleClasses = `${styleClasses} ${type}`;
@@ -15,9 +15,13 @@ const Button =(props)=>{
         return(
             <div className={styleClasses} onClick={()=>addToInput(children)}>{children}</div>
         )
-    } else if (removeFromInput){
+    } else if (removeInput){
         return(
-            <div className={styleClasses} onClick={removeFromInput}>{children}</div>
+            <div className={styleClasses} onClick={removeInput}>{children}</div>
+        )
+    } else if(calculate){
+        return(
+            <div className={styleClasses} onClick={calculate}>{children}</div>
         )
     }
 
