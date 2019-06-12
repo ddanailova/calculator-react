@@ -12,36 +12,37 @@ class Calculator extends Component{
 
         this.state={
             input:"0",
-            activeCharOffset:0,
+            activeCharIndex:0,
             customizeMode:false
         }
     }
 
     addToInput=(value)=>{
-        const {input}=this.state;
-        const actionOperators =['.','+','-','*','/','%'];
-        const isEndingWithActionOperator = actionOperators.includes(value) && actionOperators.includes(input.slice(-1));
+        const {input, activeCharIndex}=this.state;
+        const inputStart = input.slice(0, activeCharIndex+1);
+        const inputEnd = input.slice(activeCharIndex+1);
         
-        if(input==='0' || input ==='Invalid input' ){
+        (input==='0' || input ==='Invalid input') ?
             this.setState({
                 input:value
-            })
-        }else if(!isEndingWithActionOperator){
-            this.setState((prevState)=>({
-                input:prevState.input+value
-            }));
-        }
+            }):
+            this.setState({
+                input:inputStart + value + inputEnd,
+                activeCharIndex:activeCharIndex + 1
+            });
     }
 
-    removeInput=()=>{
-        const willBeEmpty = this.state.input==='0' || this.state.input.length===1 || this.state.input==='Invalid input';
+    removeFromInput=()=>{
+        const willBeEmpty = this.state.input === '0' || this.state.input.length ===1 || this.state.input ==='Invalid input';
 
         willBeEmpty ?
             this.setState({
-                input:'0'
+                input:'0',
+                activeCharIndex:0
             }):
             this.setState((prevState)=>({
-                input:prevState.input.slice(0, prevState.input.length-1)
+                input:prevState.input.slice(0, prevState.activeCharIndex) + prevState.input.slice(prevState.activeCharIndex + 1),
+                activeCharIndex:(prevState.activeCharIndex - 1) < 0 ? 0 : prevState.activeCharIndex-1,
             }))
         
     }
@@ -51,24 +52,60 @@ class Calculator extends Component{
         let result;
         try{
             result=math.evaluate(input);
-
         }catch(err){
             result="Invalid input";
         }
+        this.setState({
+            input:result.toString(),
+            activeCharIndex:result.toString().length-1
+        });
+    }
 
-        this.setState({input:result.toString()});
+    handleBack=()=>{
+        const {activeCharIndex, input}=this.state;
+        if(activeCharIndex < input.length && activeCharIndex >0){
+            this.setState((prevState)=>({
+                activeCharIndex:prevState.activeCharIndex-1
+            }))
+        }else{
+            this.setState({
+                activeCharIndex: input.length-1
+            })
+        }
+    }
+
+    handleForword=()=>{
+        const {activeCharIndex, input}=this.state;
+        if(activeCharIndex < input.length-1 && activeCharIndex >= 0){
+            this.setState((prevState)=>({
+                activeCharIndex:prevState.activeCharIndex+1
+            }))
+        }else{
+            this.setState({
+                activeCharIndex: input.length-1
+            })
+        }
+    }
+
+    toggleCustomizeMode = ()=>{
+        this.setState((prevState)=>({
+            customizeMode:!prevState.customizeMode
+        }))
     }
 
     render(){
-        const {input, activeCharOffset}=this.state;
+        const {input, activeCharIndex, customizeMode}=this.state;
         return(
             <section className="wrapper">
-                <Display input={input} activeCharOffset={activeCharOffset}/>
+                {
+                    !customizeMode ? <Display input={input} activeCharIndex={activeCharIndex}/> : null
+                }
+                
                 <section className="key-pad">
-                    <Button type="action" removeInput={this.removeInput}>del</Button>
-                    <Button type="action">{'<'}</Button>
-                    <Button type="action">{'>'}</Button>
-                    <Button type="action">customize</Button>
+                    <Button type="action" removeFromInput={this.removeFromInput}>del</Button>
+                    <Button type="action" handleBack={this.handleBack}>{'<'}</Button>
+                    <Button type="action" handleForword={this.handleForword} >{'>'}</Button>
+                    <Button type="action" toggleCustomizeMode={this.toggleCustomizeMode}>customize</Button>
                     <Button type="number" addToInput={this.addToInput}>7</Button>
                     <Button type="number" addToInput={this.addToInput}>8</Button>
                     <Button type="number" addToInput={this.addToInput}>9</Button>
