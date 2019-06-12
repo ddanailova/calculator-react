@@ -2,7 +2,7 @@ import React from 'react';
 import './Button.css';
 
 const Button =(props)=>{
-    const {children, type, addToInput, removeFromInput, calculate, handleBack, handleForword, toggleCustomizeMode}=props;
+    const {children, type, addToInput, removeFromInput, calculate, handleBack, handleForword, toggleCustomizeMode, customizable}=props;
     let styleClasses="btn";
     if(type){
         styleClasses = `${styleClasses} ${type}`;
@@ -34,6 +34,10 @@ const Button =(props)=>{
     }else if(toggleCustomizeMode){
         return(
             <div className={styleClasses} onClick={toggleCustomizeMode}>{children}</div>
+        )
+    }else if(customizable){
+        return(
+            <div className={styleClasses}><input type="color"/>{children}</div>
         )
     }
 

@@ -1,0 +1,8 @@
+.customize-pad{
+    padding:0.5rem;
+    display: grid;
+    grid-template-columns: repeat(5, 19%);
+    grid-template-rows: auto;
+    gap:0.3rem;
+    justify-content:space-evenly;
+  }

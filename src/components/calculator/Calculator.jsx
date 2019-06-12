@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import Display from './../display/Display';
-import Button from './../button/Button';
+import KeyPad from '../keyPad/KeyPad';
 import * as math from 'mathjs';
 import './Calculator.css';
+import CustomizePad from '../customizePad/CustomizePad';
 
 
 
@@ -95,37 +96,29 @@ class Calculator extends Component{
 
     render(){
         const {input, activeCharIndex, customizeMode}=this.state;
+
         return(
             <section className="wrapper">
                 {
-                    !customizeMode ? <Display input={input} activeCharIndex={activeCharIndex}/> : null
+                    !customizeMode ? 
+                    <Fragment>
+                        <Display 
+                            input={input} 
+                            activeCharIndex={activeCharIndex}
+                        />
+                        <KeyPad 
+                            addToInput={this.addToInput} 
+                            removeFromInput={this.removeFromInput} calculate={this.calculate} 
+                            handleBack={this.handleBack} 
+                            handleForword={this.handleForword} 
+                            toggleCustomizeMode={this.toggleCustomizeMode}
+                        />
+                    </Fragment>:
+                    <CustomizePad 
+                        toggleCustomizeMode={this.toggleCustomizeMode}
+                    />
                 }
-                
-                <section className="key-pad">
-                    <Button type="action" removeFromInput={this.removeFromInput}>del</Button>
-                    <Button type="action" handleBack={this.handleBack}>{'<'}</Button>
-                    <Button type="action" handleForword={this.handleForword} >{'>'}</Button>
-                    <Button type="action" toggleCustomizeMode={this.toggleCustomizeMode}>customize</Button>
-                    <Button type="number" addToInput={this.addToInput}>7</Button>
-                    <Button type="number" addToInput={this.addToInput}>8</Button>
-                    <Button type="number" addToInput={this.addToInput}>9</Button>
-                    <Button type="operator" addToInput={this.addToInput}>(</Button>
-                    <Button type="operator" addToInput={this.addToInput}>+</Button>
-                    <Button type="number" addToInput={this.addToInput}>4</Button>
-                    <Button type="number" addToInput={this.addToInput}>5</Button>
-                    <Button type="number" addToInput={this.addToInput}>6</Button>
-                    <Button type="operator" addToInput={this.addToInput}>)</Button>
-                    <Button type="operator" addToInput={this.addToInput}>-</Button>
-                    <Button type="number" addToInput={this.addToInput}>1</Button>
-                    <Button type="number" addToInput={this.addToInput}>2</Button>
-                    <Button type="number" addToInput={this.addToInput}>3</Button>
-                    <Button type="operator" addToInput={this.addToInput}>%</Button>
-                    <Button type="operator" addToInput={this.addToInput}>*</Button>
-                    <Button type="number" addToInput={this.addToInput}>0</Button>
-                    <Button type="operator" addToInput={this.addToInput}>.</Button>
-                    <Button type="action" calculate={this.calculate}>=</Button>
-                    <Button type="operator" addToInput={this.addToInput}>/</Button>
-                </section>
+
             </section>
         )
     }

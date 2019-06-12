@@ -6,11 +6,15 @@
     box-shadow: -1px -2px 23px -4px rgba(0,0,0,0.7);
   }
 
-  .key-pad{
+  .wrapper.customize-view {
+
+  }
+
+  /* .key-pad{
     padding:0.5rem;
     display: grid;
     grid-template-columns: repeat(5, 19%);
     grid-template-rows: auto;
     gap:0.3rem;
     justify-content:space-evenly;
-  }
+  } */

@@ -7,3 +7,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+@keyframes fade {
+  0%   { border-color:#ea8c73; }
+  100% { border-color: #f0f1f3; }
+}

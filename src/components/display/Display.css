@@ -1,8 +1,4 @@
 
- @keyframes fade {
-  0%   { border-bottom: 2px solid #ea8c73; }
-  100% { border-bottom: 2px solid #f0f1f3; }
-}
 
 .display{
     background: #f0f1f3;
@@ -17,7 +13,7 @@
   }
 
   .active-char {
-    /* border-bottom: 2px solid #ea8c73; */
+    border-bottom: 2px solid #ea8c73;
     color:#2c3c4b;
     animation: fade 0.6s ease-in-out infinite;
   }
