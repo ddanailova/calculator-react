@@ -18,7 +18,7 @@
   .btn.action, .btn.operator {
     background:#4c5d6f;
   }
-  
+
   .btn.highlight{
     background:#ea8c73;
     grid-column-end: span 2;
@@ -27,6 +27,12 @@
   .btn.number {
     border-color:#ea8c73;
   }
+
+  .btn:not(.customize-active):hover{
+    border-color:#2c3c4b;
+    transition: border-color 0.3s ease-out;
+  }
+
 
   input[type=color] { 
     /* removes default styling from input color element */

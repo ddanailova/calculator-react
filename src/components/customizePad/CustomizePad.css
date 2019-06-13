@@ -5,4 +5,52 @@
     grid-template-rows: auto;
     gap:0.3rem;
     justify-content:space-evenly;
-  }
+}
+
+.col-start-1 {
+  grid-column-start:1;
+}
+
+.col-start-2 {
+  grid-column-start:2;
+}
+
+.col-start-3 {
+  grid-column-start:3;
+}
+
+.col-start-4{
+  grid-column-start:4;
+}
+
+.col-start-5{
+  grid-column-start:5;
+}
+
+.row-start-1 {
+  grid-row-start:1;
+}
+
+.row-start-2 {
+  grid-row-start:2;
+}
+
+.row-start-3 {
+  grid-row-start:3;
+}
+
+.row-start-4 {
+  grid-row-start:4;
+}
+
+.row-start-5 {
+  grid-row-start:5;
+}
+
+.till-end{
+  grid-column-end: -1;
+}
+
+.col-end-5{
+  grid-column-end: 5;
+}

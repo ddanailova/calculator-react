@@ -4,6 +4,7 @@ import KeyPad from '../keyPad/KeyPad';
 import * as math from 'mathjs';
 import './Calculator.css';
 import CustomizePad from '../customizePad/CustomizePad';
+import initialButtonState from '../../data/initialButtonState';
 
 
 
@@ -14,7 +15,8 @@ class Calculator extends Component{
         this.state={
             input:"0",
             activeCharIndex:0,
-            customizeMode:false
+            customizeMode:false,
+            buttons:initialButtonState
         }
     }
 
@@ -95,7 +97,7 @@ class Calculator extends Component{
     }
 
     render(){
-        const {input, activeCharIndex, customizeMode}=this.state;
+        const {input, buttons, activeCharIndex, customizeMode}=this.state;
 
         return(
             <section className="wrapper">
@@ -107,14 +109,17 @@ class Calculator extends Component{
                             activeCharIndex={activeCharIndex}
                         />
                         <KeyPad 
+                            buttons={buttons}
                             addToInput={this.addToInput} 
-                            removeFromInput={this.removeFromInput} calculate={this.calculate} 
+                            removeFromInput={this.removeFromInput} 
+                            calculate={this.calculate} 
                             handleBack={this.handleBack} 
                             handleForword={this.handleForword} 
                             toggleCustomizeMode={this.toggleCustomizeMode}
                         />
                     </Fragment>:
                     <CustomizePad 
+                        buttons={buttons}
                         toggleCustomizeMode={this.toggleCustomizeMode}
                     />
                 }
