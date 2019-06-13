@@ -41,10 +41,15 @@ const Button =(props)=>{
                 className={styleClasses} 
                 style={dynamicStyle}
                 fixed={fixed?'true':'false'} 
+                customizable='true'
                 onClick={(ev)=>handlePositionChange(ev, children)}
             >
-                <input type="color"/>
                 {children}
+                <input 
+                    type="color" 
+                    name={children} 
+                    onChange={(ev)=>handleColorChange(ev)}
+                />
             </div>
         )
     }else if(type ==='number' || type === 'operator'){

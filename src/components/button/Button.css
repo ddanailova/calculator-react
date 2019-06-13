@@ -15,15 +15,15 @@
     animation: fade 0.5s ease-out infinite;
   }
 
-  /* .btn.action, .btn.operator {
-    background:#4c5d6f;
-  } */
-
   .btn.highlight{
     /* background:#ea8c73; */
     grid-column-end: span 2;
   }
-  
+  /* .btn.action, .btn.operator {
+    background:#4c5d6f;
+  } */
+
+
   /* .btn.number {
     border-color:#ea8c73;
   } */
@@ -37,14 +37,11 @@
   input[type=color] { 
     /* removes default styling from input color element */
     padding: 0;
-    border: none; 
-    /* makes input (color swatch) 100% size of container */
+    border: 1px solid #f0f1f3; 
     position: absolute;
     top:0.3rem; right:0.3rem; width:0.6rem; height:0.6rem;
+
     z-index:15;
-  
-    /* mix blend mode makes the color of the swatch alter the image behind it. */
-/*     mix-blend-mode: screen; try , multiply or other blend modes for different effects */
     cursor: pointer;
 }
 

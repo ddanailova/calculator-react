@@ -92,22 +92,47 @@ class Calculator extends Component{
     }
 
     toggleCustomizeMode = ()=>{
-        this.setState((prevState)=>({
-            customizeMode:!prevState.customizeMode
-        }))
+        this.setState((prevState)=>{
+            const withtDefaultBorder = {...prevState.buttons};
+
+            Object.keys(withtDefaultBorder).forEach(key=>withtDefaultBorder[key].borderStyle=defaultBorderStyle);
+            
+            return{
+            customizeMode:!prevState.customizeMode,
+            startPosition:null,
+            buttons:withtDefaultBorder
+        }})
     }
 
     handleColorChange=(ev)=>{
+        const { name, value}=ev.target;
+        const {buttons} = this.state;
+        const targetButtonStyleChanged = {...buttons[name], background:value};
+        if(name==='='){
+            const customizeButtonStyleChanged = {...buttons.customize, background:value};
+            const withNewHighlightBorder = {...buttons};
+            Object.keys(withNewHighlightBorder).filter(key=>withNewHighlightBorder[key].type === 'number').forEach(key=>withNewHighlightBorder[key].borderColor=value);
 
+            this.setState({
+                buttons:{...withNewHighlightBorder,  [name]:targetButtonStyleChanged, 'customize':customizeButtonStyleChanged }
+            })
+        }else{
+            this.setState({
+                buttons:{...buttons,  [name]:targetButtonStyleChanged }
+            })
+        }
+        
     }
 
     handlePositionChange=(ev, keyValue)=>{
         const isFixed = ev.target.getAttribute('fixed') === 'true' ? true : false;
-        if(!isFixed){
+        const isCustomizable = ev.target.getAttribute('customizable') === 'true' ? true : false;
+
+        if(!isFixed && isCustomizable){
+            const styleClasses = ev.target.getAttribute('class');
             const {buttons, startPosition} =this.state;
             if(!startPosition){
-                    const classList = ev.target.getAttribute('class');
-                    const positionStyles = classList.split(' ').slice(2).join(' ');
+                    const positionStyles = styleClasses.split(' ').slice(2).join(' ');
                     const targetButtonStyleChanged = {...buttons[keyValue], borderStyle:'dashed'};
         
                     this.setState({
@@ -125,8 +150,8 @@ class Calculator extends Component{
                         buttons:{...buttons,  [keyValue]:targetButtonStyleChanged }
                     })
                 }else{
-                    const classList = ev.target.getAttribute('class');
-                    const newPositionStyles = classList.split(' ').slice(2).join(' ');
+                    const styleClasses = ev.target.getAttribute('class');
+                    const newPositionStyles = styleClasses.split(' ').slice(2).join(' ');
                     const startPositionStyleChanged = {...buttons[startTargetKey], positionStyles:newPositionStyles, borderStyle:defaultBorderStyle};
                     const endPositionStyleChanged = {...buttons[keyValue], positionStyles:startPosition[startTargetKey]};
 

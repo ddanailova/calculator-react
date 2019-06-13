@@ -10,6 +10,6 @@ body {
 
 
 @keyframes fade {
-  0%   { border-color:#ea8c73; }
+  0%   { border-color:#2c3c4b ; } /*#ea8c73*/
   100% { border-color: #f0f1f3; }
 }
