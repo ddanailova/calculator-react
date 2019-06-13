@@ -17,6 +17,9 @@ const KeyPad =(props)=>{
                             handleBack={handleBack} 
                             handleForword={handleForword} 
                             toggleCustomizeMode={toggleCustomizeMode}
+                            background={ buttons[key].background}
+                            borderColor={ buttons[key].borderColor}
+                            borderStyle={ buttons[key].borderStyle}
                             positionStyles={buttons[key].positionStyles}
                             extraStyles={buttons[key].extraStyles}
                             fixed={buttons[key].fixed}

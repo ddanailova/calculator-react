@@ -4,7 +4,7 @@ import KeyPad from '../keyPad/KeyPad';
 import * as math from 'mathjs';
 import './Calculator.css';
 import CustomizePad from '../customizePad/CustomizePad';
-import initialButtonState from '../../data/initialButtonState';
+import initialButtonState, {defaultBorderStyle} from '../../data/initialButtonState';
 
 
 
@@ -16,7 +16,8 @@ class Calculator extends Component{
             input:"0",
             activeCharIndex:0,
             customizeMode:false,
-            buttons:initialButtonState
+            buttons:initialButtonState,
+            startPosition:null,
         }
     }
 
@@ -96,6 +97,48 @@ class Calculator extends Component{
         }))
     }
 
+    handleColorChange=(ev)=>{
+
+    }
+
+    handlePositionChange=(ev, keyValue)=>{
+        const isFixed = ev.target.getAttribute('fixed') === 'true' ? true : false;
+        if(!isFixed){
+            const {buttons, startPosition} =this.state;
+            if(!startPosition){
+                    const classList = ev.target.getAttribute('class');
+                    const positionStyles = classList.split(' ').slice(2).join(' ');
+                    const targetButtonStyleChanged = {...buttons[keyValue], borderStyle:'dashed'};
+        
+                    this.setState({
+                        startPosition:{[keyValue]:positionStyles},
+                        buttons:{...buttons,  [keyValue]:targetButtonStyleChanged }
+                    })
+                
+            }else{
+                const startTargetKey = Object.keys(startPosition)[0];
+                if(keyValue === startTargetKey){
+                    const targetButtonStyleChanged = {...buttons[keyValue], borderStyle:defaultBorderStyle};
+        
+                    this.setState({
+                        startPosition:null,
+                        buttons:{...buttons,  [keyValue]:targetButtonStyleChanged }
+                    })
+                }else{
+                    const classList = ev.target.getAttribute('class');
+                    const newPositionStyles = classList.split(' ').slice(2).join(' ');
+                    const startPositionStyleChanged = {...buttons[startTargetKey], positionStyles:newPositionStyles, borderStyle:defaultBorderStyle};
+                    const endPositionStyleChanged = {...buttons[keyValue], positionStyles:startPosition[startTargetKey]};
+
+                    this.setState({
+                        startPosition:null,
+                        buttons:{...buttons, [startTargetKey]:startPositionStyleChanged, [keyValue]:endPositionStyleChanged, }
+                    })
+                }
+            }
+        }
+    }
+
     render(){
         const {input, buttons, activeCharIndex, customizeMode}=this.state;
 
@@ -121,6 +164,8 @@ class Calculator extends Component{
                     <CustomizePad 
                         buttons={buttons}
                         toggleCustomizeMode={this.toggleCustomizeMode}
+                        handleColorChange={this.handleColorChange}
+                        handlePositionChange={this.handlePositionChange}
                     />
                 }
 
