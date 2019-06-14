@@ -40,7 +40,7 @@ const initialButtonState = {
         "fixed":true,
         "extraStyles":"highlight"
     },
-    "customize":{
+    "customise":{
         "type":"action",
         "positionStyles":"col-start-4 row-start-1 till-end",
         "background":defaultHighlightColor,
@@ -193,12 +193,13 @@ const initialButtonState = {
         "borderStyle":defaultBorderStyle,
         "fixed":false
     },
-    // "$":{
+
+    // "#":{
     //     "type":"operator",
-    //     "positionStyles":"col-start-4",
+    //     "positionStyles":"col-start-2",
     //     "background":defaultLightBtnBackground,
-    // "borderColor":defaultBorderColor,
-    // "borderStyle":defaultBorderStyle,
+    //     "borderColor":defaultBorderColor,
+    //     "borderStyle":defaultBorderStyle,
     //     "fixed":false
     // },
 }

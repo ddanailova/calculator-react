@@ -3,19 +3,24 @@
 .display{
     background: #f0f1f3;
     color:#4c5d6f;
+    text-shadow: 1px 0px 16px rgba(255, 255, 255, 1);
     text-align:right;
     padding:0.5rem 1rem;
     font-size:2rem;
     border: 1px solid #f0f1f3;
     border-radius:0.2rem;
     height: 2.69rem;
+  }
+  
+  .inner-display {
+    padding-bottom: 0.3rem;
     overflow: hidden;
   }
 
   .active-char {
     border-bottom: 2px solid #2c3c4b;
     color:#2c3c4b;
-    animation: fade 0.6s ease-in-out infinite;
+    animation: fade 0.8s ease-in infinite;
   }
 
 

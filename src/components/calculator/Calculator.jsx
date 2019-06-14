@@ -3,7 +3,7 @@ import Display from './../display/Display';
 import KeyPad from '../keyPad/KeyPad';
 import * as math from 'mathjs';
 import './Calculator.css';
-import CustomizePad from '../customizePad/CustomizePad';
+import CustomisePad from '../customisePad/CustomisePad';
 import initialButtonState, {defaultBorderStyle} from '../../data/initialButtonState';
 
 
@@ -15,7 +15,7 @@ class Calculator extends Component{
         this.state={
             input:"0",
             activeCharIndex:0,
-            customizeMode:false,
+            customiseMode:false,
             buttons:initialButtonState,
             startPosition:null,
         }
@@ -53,16 +53,19 @@ class Calculator extends Component{
 
     calculate=()=>{
         const {input}=this.state;
-        let result;
         try{
-            result=math.evaluate(input);
-        }catch(err){
-            result="Invalid input";
-        }
-        this.setState({
+           const result=math.evaluate(input);
+           this.setState({
             input:result.toString(),
             activeCharIndex:result.toString().length-1
         });
+        }catch(err){
+            this.setState({
+                input:'Invalid input',
+                activeCharIndex:0
+            });
+        }
+
     }
 
     handleBack=()=>{
@@ -91,14 +94,14 @@ class Calculator extends Component{
         }
     }
 
-    toggleCustomizeMode = ()=>{
+    toggleCustomiseMode = ()=>{
         this.setState((prevState)=>{
             const withtDefaultBorder = {...prevState.buttons};
 
             Object.keys(withtDefaultBorder).forEach(key=>withtDefaultBorder[key].borderStyle=defaultBorderStyle);
             
             return{
-            customizeMode:!prevState.customizeMode,
+            customiseMode:!prevState.customiseMode,
             startPosition:null,
             buttons:withtDefaultBorder
         }})
@@ -109,19 +112,18 @@ class Calculator extends Component{
         const {buttons} = this.state;
         const targetButtonStyleChanged = {...buttons[name], background:value};
         if(name==='='){
-            const customizeButtonStyleChanged = {...buttons.customize, background:value};
+            const customiseButtonStyleChanged = {...buttons.customise, background:value};
             const withNewHighlightBorder = {...buttons};
             Object.keys(withNewHighlightBorder).filter(key=>withNewHighlightBorder[key].type === 'number').forEach(key=>withNewHighlightBorder[key].borderColor=value);
 
             this.setState({
-                buttons:{...withNewHighlightBorder,  [name]:targetButtonStyleChanged, 'customize':customizeButtonStyleChanged }
+                buttons:{...withNewHighlightBorder,  [name]:targetButtonStyleChanged, 'customise':customiseButtonStyleChanged }
             })
         }else{
             this.setState({
                 buttons:{...buttons,  [name]:targetButtonStyleChanged }
             })
-        }
-        
+        }        
     }
 
     handlePositionChange=(ev, keyValue)=>{
@@ -165,12 +167,12 @@ class Calculator extends Component{
     }
 
     render(){
-        const {input, buttons, activeCharIndex, customizeMode}=this.state;
+        const {input, buttons, activeCharIndex, customiseMode}=this.state;
 
         return(
             <section className="wrapper">
                 {
-                    !customizeMode ? 
+                    !customiseMode ? 
                     <Fragment>
                         <Display 
                             input={input} 
@@ -183,17 +185,16 @@ class Calculator extends Component{
                             calculate={this.calculate} 
                             handleBack={this.handleBack} 
                             handleForword={this.handleForword} 
-                            toggleCustomizeMode={this.toggleCustomizeMode}
+                            toggleCustomiseMode={this.toggleCustomiseMode}
                         />
                     </Fragment>:
-                    <CustomizePad 
+                    <CustomisePad 
                         buttons={buttons}
-                        toggleCustomizeMode={this.toggleCustomizeMode}
+                        toggleCustomiseMode={this.toggleCustomiseMode}
                         handleColorChange={this.handleColorChange}
                         handlePositionChange={this.handlePositionChange}
                     />
                 }
-
             </section>
         )
     }

@@ -1,17 +1,17 @@
 import React from 'react';
-import Button from './../button/Button';
-import './CustomizePad.css';
+import Button from '../button/Button';
+import './CustomisePad.css';
 
-const CustomizePad =(props)=>{
-    const {buttons,toggleCustomizeMode, handleColorChange,handlePositionChange}=props;
+const CustomisePad =(props)=>{
+    const {buttons,toggleCustomiseMode, handleColorChange,handlePositionChange}=props;
     return(
-        <section className="customize-pad">
+        <section className="customise-pad">
         {
             Object.keys(buttons).map(key=>(
                     <Button 
                         key={key}
                         type={buttons[key].type}
-                        toggleCustomizeMode={toggleCustomizeMode}
+                        toggleCustomiseMode={toggleCustomiseMode}
                         handleColorChange={handleColorChange}
                         handlePositionChange={handlePositionChange}
                         positionStyles={buttons[key].positionStyles}
@@ -29,4 +29,4 @@ const CustomizePad =(props)=>{
     )
 }
 
-export default CustomizePad;
+export default CustomisePad;

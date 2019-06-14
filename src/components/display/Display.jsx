@@ -11,10 +11,13 @@ const Display =(props)=>{
     });
 
     return (
-        <div className="display">{
-            inputChars
-        }
-        </div>
+        <section className="display">
+            <div className="inner-display">
+                {
+                    inputChars
+                }
+            </div>
+        </section>
     )
 }
 

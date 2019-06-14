@@ -15,7 +15,7 @@ const Button =(props)=>{
             calculate, 
             handleBack, 
             handleForword, 
-            toggleCustomizeMode, 
+            toggleCustomiseMode, 
             handleColorChange,
             handlePositionChange,
             customizable, 
@@ -33,11 +33,11 @@ const Button =(props)=>{
         styleClasses = `${styleClasses} ${extraStyles}`;
     }
 
-    let dynamicStyle = {background, borderColor, borderStyle}
+    let dynamicStyle = {background, borderColor, borderStyle};
 
-    if(customizable && children !== 'customize'){
+    if(customizable && children !== 'customise'){
         return(
-            <div 
+            <button 
                 className={styleClasses} 
                 style={dynamicStyle}
                 fixed={fixed?'true':'false'} 
@@ -45,41 +45,37 @@ const Button =(props)=>{
                 onClick={(ev)=>handlePositionChange(ev, children)}
             >
                 {children}
-                <input 
-                    type="color" 
-                    name={children} 
-                    onChange={(ev)=>handleColorChange(ev)}
-                />
-            </div>
+                <input type="color" name={children} onChange={(ev)=>handleColorChange(ev)}/>
+            </button>
         )
     }else if(type ==='number' || type === 'operator'){
         return(
-            <div className={styleClasses} style={dynamicStyle} onClick={()=>addToInput(children)}>{children}</div>
+            <button className={styleClasses} style={dynamicStyle} onClick={()=>addToInput(children)}>{children}</button>
         )
     } else if (children === 'del'){
         return(
-            <div className={styleClasses} style={dynamicStyle} onClick={removeFromInput}>{children}</div>
+            <button className={styleClasses} style={dynamicStyle} onClick={removeFromInput}>{children}</button>
         )
     } else if(children === '='){
         return(
-            <div className={styleClasses} style={dynamicStyle} onClick={calculate}>{children}</div>
+            <button className={styleClasses} style={dynamicStyle} onClick={calculate}>{children}</button>
         )
     }else if(children === '<'){
         return(
-            <div className={styleClasses} style={dynamicStyle} onClick={handleBack}>{children}</div>
+            <button className={styleClasses} style={dynamicStyle} onClick={handleBack}>{children}</button>
         )
     }else if(children === '>'){
         return(
-            <div className={styleClasses} style={dynamicStyle} onClick={handleForword}>{children}</div>
+            <button className={styleClasses} style={dynamicStyle} onClick={handleForword}>{children}</button>
         )
-    }else if(children === 'customize'){
+    }else if(children === 'customise'){
         return(
-            <div className={styleClasses} style={dynamicStyle} onClick={toggleCustomizeMode}>{children}</div>
+            <button className={styleClasses} style={dynamicStyle} onClick={toggleCustomiseMode}>{children}</button>
         )
     }
 
     return(
-        <div className={styleClasses} style={dynamicStyle}>{children}</div>
+        <button className={styleClasses} style={dynamicStyle}>{children}</button>
     )
 }
 

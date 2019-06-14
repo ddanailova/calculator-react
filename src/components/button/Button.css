@@ -1,7 +1,7 @@
 .btn {
     color:#f0f1f3;
     border: 1px solid #f0f1f3;
-    border-radius:0.3rem;
+    border-radius:0.5rem;
     padding:1rem 0.5rem;
     background: #3c4e5f;
     font-size:1rem;
@@ -9,30 +9,12 @@
     text-transform: uppercase;
     cursor: pointer;
     position: relative;
+    outline:none;
   }
   
-  .btn.customize-active {
-    animation: fade 0.5s ease-out infinite;
-  }
-
   .btn.highlight{
-    /* background:#ea8c73; */
     grid-column-end: span 2;
   }
-  /* .btn.action, .btn.operator {
-    background:#4c5d6f;
-  } */
-
-
-  /* .btn.number {
-    border-color:#ea8c73;
-  } */
-
-  /* .btn:not(.customize-active):hover{
-    border-color:#2c3c4b;
-    transition: border-color 0.3s ease-out;
-  } */
-
 
   input[type=color] { 
     /* removes default styling from input color element */

@@ -3,7 +3,16 @@ import Button from './../button/Button';
 import './KeyPad.css';
 
 const KeyPad =(props)=>{
-    const {buttons, addToInput, removeFromInput, calculate, handleBack, handleForword, toggleCustomizeMode}=props;
+    const {
+                buttons, 
+                addToInput, 
+                removeFromInput,
+                calculate, 
+                handleBack, 
+                handleForword, 
+                toggleCustomiseMode
+        } = props;
+        
     return(
         <section className="key-pad">
             {
@@ -16,7 +25,7 @@ const KeyPad =(props)=>{
                             calculate={calculate} 
                             handleBack={handleBack} 
                             handleForword={handleForword} 
-                            toggleCustomizeMode={toggleCustomizeMode}
+                            toggleCustomiseMode={toggleCustomiseMode}
                             background={ buttons[key].background}
                             borderColor={ buttons[key].borderColor}
                             borderStyle={ buttons[key].borderStyle}
